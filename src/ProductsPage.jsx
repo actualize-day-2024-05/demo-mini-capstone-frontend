@@ -35,6 +35,22 @@ export function ProductsPage() {
     setCurrentProduct(product);
   };
 
+  const handleUpdate = (id, params, successCallback) => {
+    axios.patch(`http://localhost:3000/products/${id}.json`, params).then((response) => {
+      setProducts(
+        products.map((product) => {
+          if (product.id === id) {
+            return response.data;
+          } else {
+            return product;
+          }
+        })
+      );
+      successCallback();
+      setIsShowVisible(false);
+    });
+  };
+
   useEffect(handleIndex, []);
 
   return (
@@ -42,7 +58,7 @@ export function ProductsPage() {
       <ProductsNew onCreate={handleCreate} />
       <ProductsIndex products={products} onShow={handleShow} />
       <Modal show={isShowVisible} onClose={() => setIsShowVisible(false)}>
-        <ProductsShow product={currentProduct} />
+        <ProductsShow product={currentProduct} onUpdate={handleUpdate} />
       </Modal>
     </main>
   );
