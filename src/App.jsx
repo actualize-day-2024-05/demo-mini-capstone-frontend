@@ -1,19 +1,30 @@
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+
 import { Header } from "./Header";
 import { ProductsPage } from "./ProductsPage";
 import { Footer } from "./Footer";
 import { SignupPage } from "./SignupPage";
 import { LoginPage } from "./LoginPage";
 
+const router = createBrowserRouter([
+  {
+    element: (
+      <div>
+        <Header />
+        <Outlet />
+        <Footer />
+      </div>
+    ),
+    children: [
+      { path: "/", element: <ProductsPage /> },
+      { path: "/signup", element: <SignupPage /> },
+      { path: "/login", element: <LoginPage /> },
+    ],
+  },
+]);
+
 function App() {
-  return (
-    <div>
-      <Header />
-      <SignupPage />
-      <LoginPage />
-      <ProductsPage />
-      <Footer />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
