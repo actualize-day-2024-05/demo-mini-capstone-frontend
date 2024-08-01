@@ -3,8 +3,8 @@ import axios from "axios";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 import { Header } from "./Header";
-import { ProductsPage } from "./ProductsPage";
 import { Footer } from "./Footer";
+import { HomePage } from "./HomePage";
 import { SignupPage } from "./SignupPage";
 import { LoginPage } from "./LoginPage";
 import { ProductsNewPage } from "./ProductsNewPage";
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       </div>
     ),
     children: [
-      { path: "/", element: <ProductsPage /> },
+      { path: "/", element: <HomePage /> },
       { path: "/signup", element: <SignupPage /> },
       { path: "/login", element: <LoginPage /> },
       {
