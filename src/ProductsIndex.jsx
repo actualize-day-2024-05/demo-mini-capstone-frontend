@@ -1,7 +1,7 @@
 export function ProductsIndex({ products, onShow }) {
   return (
     <div id="products-index">
-      <h1>All products</h1>
+      <h1 className="text-3xl font-bold underline">All products</h1>
       {products.map((product) => (
         <div key={product.id}>
           <h2>{product.name}</h2>
