@@ -14,7 +14,7 @@ import { ProductsShowPage } from "./ProductsShowPage";
 const router = createBrowserRouter([
   {
     element: (
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col font-['Futura'] bg-[url('./assets/moroccan-flower.png')]">
         <Header />
         <div className="container mx-auto flex-auto p-4">
           <Outlet />
