@@ -31,16 +31,21 @@ export function SignupPage() {
       </ul>
       <form onSubmit={handleSubmit}>
         <div>
-          Name: <input name="name" type="text" />
+          Name: <input name="name" type="text" className="mt-1 block w-full rounded-md border-gray-300" />
         </div>
         <div>
-          Email: <input name="email" type="email" />
+          Email: <input name="email" type="email" className="mt-1 block w-full rounded-md border-gray-300" />
         </div>
         <div>
-          Password: <input name="password" type="password" />
+          Password: <input name="password" type="password" className="mt-1 block w-full rounded-md border-gray-300" />
         </div>
         <div>
-          Password confirmation: <input name="password_confirmation" type="password" />
+          Password confirmation:{" "}
+          <input
+            name="password_confirmation"
+            type="password"
+            className="mt-1 block w-full rounded-md border-gray-300"
+          />
         </div>
         <button type="submit">Signup</button>
       </form>
