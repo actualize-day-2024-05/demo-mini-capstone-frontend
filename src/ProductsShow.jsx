@@ -1,4 +1,24 @@
+import { useState } from "react";
+
 export function ProductsShow({ product, onUpdate, onDestroy, onCreateCartedProduct }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [prevImageIndex, setPrevImageIndex] = useState(null);
+  const [slideDirection, setSlideDirection] = useState("");
+
+  const handlePreviousImage = () => {
+    const newImageIndex = currentImageIndex === 0 ? product.images.length - 1 : currentImageIndex - 1;
+    setPrevImageIndex(currentImageIndex);
+    setSlideDirection("slide-left");
+    setCurrentImageIndex(newImageIndex);
+  };
+
+  const handleNextImage = () => {
+    const newImageIndex = currentImageIndex === product.images.length - 1 ? 0 : currentImageIndex + 1;
+    setPrevImageIndex(currentImageIndex);
+    setSlideDirection("slide-right");
+    setCurrentImageIndex(newImageIndex);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const params = new FormData(event.target);
@@ -14,7 +34,35 @@ export function ProductsShow({ product, onUpdate, onDestroy, onCreateCartedProdu
   return (
     <div className="grid grid-cols-3 gap-4">
       <div>
-        <img src={product.primary_image_url} alt="" />
+        <div className="relative h-64 overflow-hidden">
+          {prevImageIndex !== null && (
+            <img
+              src={product.images[prevImageIndex].url}
+              alt={`Product image ${prevImageIndex + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 ${
+                slideDirection === "slide-left" ? "slide-out-left" : "slide-out-right"
+              }`}
+            />
+          )}
+          <img
+            src={product.images[currentImageIndex].url}
+            alt={`Product image ${currentImageIndex + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 ${slideDirection}`}
+            onAnimationEnd={() => {
+              setSlideDirection("");
+              setPrevImageIndex(null);
+            }}
+          />
+          <button onClick={handleNextImage} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2">
+            &lt;
+          </button>
+          <button
+            onClick={handlePreviousImage}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2"
+          >
+            &gt;
+          </button>
+        </div>
         <form onSubmit={handleSubmitCartedProduct}>
           <div>
             <input type="hidden" name="product_id" value={product.id} />
