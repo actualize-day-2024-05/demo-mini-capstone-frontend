@@ -1,8 +1,14 @@
-export function ProductsShow({ product, onUpdate, onDestroy }) {
+export function ProductsShow({ product, onUpdate, onDestroy, onCreateCartedProduct }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const params = new FormData(event.target);
     onUpdate(product.id, params, () => event.target.reset());
+  };
+
+  const handleSubmitCartedProduct = (event) => {
+    event.preventDefault();
+    const params = new FormData(event.target);
+    onCreateCartedProduct(params);
   };
 
   return (
@@ -23,6 +29,15 @@ export function ProductsShow({ product, onUpdate, onDestroy }) {
         <button type="submit">Update</button>
       </form>
       <button onClick={() => onDestroy(product.id)}>Destroy</button>
+      <form onSubmit={handleSubmitCartedProduct}>
+        <div>
+          Product id: <input type="number" name="product_id" value={product.id} />
+        </div>
+        <div>
+          Quantity: <input type="number" name="quantity" />
+        </div>
+        <button type="submit">Add to cart</button>
+      </form>
     </div>
   );
 }
