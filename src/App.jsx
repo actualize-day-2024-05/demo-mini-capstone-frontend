@@ -11,6 +11,7 @@ import { ProductsNewPage } from "./ProductsNewPage";
 import { ProductsIndexPage } from "./ProductsIndexPage";
 import { ProductsShowPage } from "./ProductsShowPage";
 import { OrdersIndexPage } from "./OrdersIndexPage";
+import { CartedProductsIndexPage } from "./CartedProductsIndexPage";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
         path: "/orders",
         element: <OrdersIndexPage />,
         loader: () => axios.get("http://localhost:3000/orders.json").then((response) => response.data),
+      },
+      {
+        path: "/carted_products",
+        element: <CartedProductsIndexPage />,
+        loader: () => axios.get("http://localhost:3000/carted_products.json").then((response) => response.data),
       },
     ],
   },
