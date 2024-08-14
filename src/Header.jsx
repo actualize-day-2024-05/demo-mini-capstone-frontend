@@ -14,6 +14,9 @@ export function Header() {
         <Link className="px-3 py-2 hover:bg-gray-700 rounded-md" to="/products/new">
           New product
         </Link>
+        <Link className="px-3 py-2 hover:bg-gray-700 rounded-md" to="/orders">
+          Orders
+        </Link>
         <Link className="px-3 py-2 hover:bg-gray-700 rounded-md" to="/signup">
           Signup
         </Link>
