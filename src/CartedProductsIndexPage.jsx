@@ -1,8 +1,18 @@
-import { useLoaderData, Link } from "react-router-dom";
+import axios from "axios";
+import { useLoaderData, useNavigate, Link } from "react-router-dom";
 
 export function CartedProductsIndexPage() {
+  const navigate = useNavigate();
+
   const carted_products = useLoaderData();
   console.log("THE CARTED PRODUCTS ARE", carted_products);
+
+  const handleClick = () => {
+    console.log("handleClick");
+    axios.post("http://localhost:3000/orders.json").then(() => {
+      navigate("/orders");
+    });
+  };
 
   return (
     <div>
@@ -17,6 +27,11 @@ export function CartedProductsIndexPage() {
       <Link to="/products" className="rounded border bg-white border-gray-300 p-2 hover:bg-gray-100">
         Continue shopping
       </Link>
+      <div className="mt-5">
+        <button onClick={handleClick} className="rounded border bg-white border-gray-300 p-2 hover:bg-gray-100">
+          Buy now
+        </button>
+      </div>
     </div>
   );
 }
