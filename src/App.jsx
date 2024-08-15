@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, useRouteError, Navigate, RouterProvider, Outlet } from "react-router-dom";
 
 import { Header } from "./Header";
 import { Footer } from "./Footer";
@@ -27,6 +27,7 @@ const router = createBrowserRouter([
         <Footer />
       </div>
     ),
+    errorElement: <ErrorBoundary />,
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/signup", element: <SignupPage /> },
@@ -55,6 +56,15 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
+function ErrorBoundary() {
+  let error = useRouteError();
+  console.error("THE ERROR IS", error, error.response.status);
+  if (error?.response?.status === 401) {
+    return <Navigate to="/login" replace={true} />;
+  }
+  return <div>Dang!</div>;
+}
 
 function App() {
   return <RouterProvider router={router} />;
