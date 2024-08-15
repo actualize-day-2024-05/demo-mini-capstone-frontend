@@ -13,6 +13,9 @@ import { ProductsShowPage } from "./ProductsShowPage";
 import { OrdersIndexPage } from "./OrdersIndexPage";
 import { CartedProductsIndexPage } from "./CartedProductsIndexPage";
 
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://demo-mini-capstone.onrender.com";
+
 const router = createBrowserRouter([
   {
     element: (
@@ -31,24 +34,23 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <ProductsIndexPage />,
-        loader: () => axios.get("http://localhost:3000/products.json").then((response) => response.data),
+        loader: () => axios.get("/products.json").then((response) => response.data),
       },
       { path: "/products/new", element: <ProductsNewPage /> },
       {
         path: "/products/:id",
         element: <ProductsShowPage />,
-        loader: ({ params }) =>
-          axios.get(`http://localhost:3000/products/${params.id}.json`).then((response) => response.data),
+        loader: ({ params }) => axios.get(`/products/${params.id}.json`).then((response) => response.data),
       },
       {
         path: "/orders",
         element: <OrdersIndexPage />,
-        loader: () => axios.get("http://localhost:3000/orders.json").then((response) => response.data),
+        loader: () => axios.get("/orders.json").then((response) => response.data),
       },
       {
         path: "/carted_products",
         element: <CartedProductsIndexPage />,
-        loader: () => axios.get("http://localhost:3000/carted_products.json").then((response) => response.data),
+        loader: () => axios.get("/carted_products.json").then((response) => response.data),
       },
     ],
   },
